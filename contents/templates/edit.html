@@ -1,0 +1,25 @@
+<div class="container">
+	<h2>Urejevalnik</h2>
+	<ul>
+		<li ng-repeat="user in users | orderBy:'city'">{{ user.name | uppercase}} - {{ user.city | lowercase }}</li>
+	</ul>
+	<div>
+		<p>
+			<span>Ime uporabnika:</span><br />
+			<input type="text" ng-model="newUser.name" />
+		</p>
+		<p>
+			<span>Kraj uporabnika:</span><br />
+			<input type="text" ng-model="newUser.city" />
+		</p>
+		<p>
+			<button ng-click="addUser()">Dodaj uporabnika</button>
+		</p>
+	</div>
+	<div>
+		<a href="#/search">iskalnik</a>
+	</div>
+	<div>
+		<button ng-click="logout()">Odjava</button>
+	</div>
+</div>

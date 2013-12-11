@@ -1,0 +1,15 @@
+<div class="container">
+	<h2>Iskalnik uporabnikov</h2>
+	<span>Išči: <input type="text" ng-model="filter" /></span>
+	<span>{{filter}}</span>
+	<h3>Uporabniki:</h3>
+	<ul>
+		<li ng-repeat="user in users | filter:filter | orderBy:'city'">{{ user.name | uppercase}} - {{ user.city | lowercase }}</li>
+	</ul>
+	<div>
+		<a href="#/edit">urejevalnik</a>
+	</div>
+	<div>
+		<button ng-click="logout()">Odjava</button>
+	</div>
+</div>
