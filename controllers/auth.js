@@ -32,7 +32,6 @@ function auth_login() {
 
 		if (!doc) {
 			self.status = 402;
-			self.json({ msg: '' });
 			self.json({ msg: self.resource('sl', 'user_not_exists') });
 			return;
 		}
