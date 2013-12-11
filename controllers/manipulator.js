@@ -5,6 +5,7 @@ exports.install = function(framework) {
 function password(pass) {
 	var self = this;
 
-	var encoded_password = self.framework.encode(pass);
+	var encoded_password = pass.sha256(self.config.secret);
+
 	this.plain(encoded_password);
 }
