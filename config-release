@@ -1,8 +1,11 @@
 // framework options
-name                               : Pobuda
-version                            : 0.0.1
-author                             : Marko Bregant
+name								: Pobuda
+version								: 0.0.1
+author								: Marko Bregant
 
 // enable/disable static compilation
-allow-compile-js                   : false
-allow-compile-css                  : false
+allow-compile-js					: false
+allow-compile-css					: false
+
+// security
+secret								: ************
