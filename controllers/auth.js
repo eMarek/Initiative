@@ -13,11 +13,13 @@ function auth_login() {
 	if (!username) {
 		self.status = 402;
 		self.json({ msg: self.resource('sl', 'enter_username') });
+		return;
 	}
 
 	if (!password) {
 		self.status = 402;
 		self.json({ msg: self.resource('sl', 'enter_password') });
+		return;
 	}
 
 	var db_users = self.database('users');
