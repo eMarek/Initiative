@@ -116,16 +116,23 @@ app.factory('authenticationFactory', function ($http, $location, sessionFactory,
 
 	return {
 		login: function (credentials) {
+			flashFactory.clear();
+			
 			var login = $http.post('/auth/login', credentials);
 
 			login.success(function (server) {
-				sessionFactory.set('authenticated', true);
-				flashFactory.clear();
-				$location.path('/edit');
-			});
 
-			login.error(function (server) {
-				flashFactory.show(server.msg);
+				if (server.status == 'okay') {
+					sessionFactory.set('authenticated', true);
+					flashFactory.clear();
+					$location.path('/edit');
+					return;
+				}
+
+				if (server.status == 'error') {
+					flashFactory.show(server.text);
+					return;
+				}
 			});
 		},
 
