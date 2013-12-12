@@ -36,7 +36,7 @@ function auth_login() {
 			return;
 		}
 
-		if (password != doc.value.password) {
+		if (password.sha256(self.config.secret) != doc.value.password) {
 			self.status = 402;
 			self.json({ msg: self.resource('sl', 'wrong_password') });
 			return;
