@@ -9,3 +9,4 @@ allow-compile-css					: false
 
 // security
 secret								: ************
+cookie								: __user
