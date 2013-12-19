@@ -1,6 +1,6 @@
 exports.install = function (framework) {
     framework.route('/', index);
-    framework.route('/usage/', framework_usage);
+    framework.route('/usage/', framework_usage, ['logged']);
 };
 
 function index () {

@@ -12,7 +12,7 @@ framework.onAuthorization = function (req, res, flags, callback) {
 	// decrypt cookie
 	var cookie = self.decrypt(encypted_cookie);
 
-	if (cookie === null || cookie === '' || cookie.ip !== req.ip || cookie.user_agent !== req.user_agent || cookie.secret !== self.config.secret) {
+	if (cookie === null || cookie === '' || cookie.ip !== req.ip || cookie.user_agent !== req.headers['user-agent'] || cookie.secret !== self.config.secret) {
 		callback(false);
 		return;
 	}
