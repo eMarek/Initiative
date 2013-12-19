@@ -1,6 +1,6 @@
 exports.install = function(framework) {
-	framework.route('/auth/login', auth_login, ['json']);
-	framework.route('/auth/logout', auth_logout, ['json']);
+	framework.route('/auth/login', auth_login, ['post', 'json']);
+	framework.route('/auth/logout', auth_logout, ['get']);
 	framework.route('/auth/expiry', auth_expiry);
 };
 
