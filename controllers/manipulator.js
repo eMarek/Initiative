@@ -1,6 +1,7 @@
 exports.install = function(framework) {
 	framework.route('/manipulator/password/{pass}', password);
-	framework.route('/manipulator/cookie/{encrypted_cookie}', cookie);
+	framework.route('/manipulator/decrypt_cookie/{encrypted_cookie}', decrypt_cookie);
+	framework.route('/manipulator/encrypt_cookie/', encrypt_cookie);
 };
 
 function password(pass) {
@@ -11,26 +12,27 @@ function password(pass) {
 	self.plain(encoded_password);
 }
 
-function cookie(encrypted_cookie) {
+function decrypt_cookie(encrypted_cookie) {
 
 	var self = this;
 
-	/*
-	var time_stamp = self.module('helper').time_stamp();
+	var decrypted_cookie = self.decrypt(encrypted_cookie);
+
+	self.plain(JSON.stringify(decrypted_cookie));
+}
+
+function encrypt_cookie() {
+
+	var self = this;
 
 	var cookie = {
 		username: 'testis',
 		user_agent: self.req.headers['user-agent'],
 		secret: self.config.secret,
-		time_stamp: time_stamp
+		time_stamp: self.module('helper').time_stamp()
 	};
 
 	var encrypted_cookie = self.encrypt(cookie);
-	console.log(encrypted_cookie);
-	*/
 
-
-	var decrypted_cookie = self.decrypt(encrypted_cookie);
-
-	self.plain(JSON.stringify(decrypted_cookie));
+	self.plain(encrypted_cookie);
 }
