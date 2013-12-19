@@ -62,7 +62,7 @@ function auth_login() {
 		var encrypted_cookie = self.encrypt(cookie);
 
 		// save cookie
-		self.res.cookie(self.config.cookie, encrypted_cookie, new Date().add('m', 3));
+		self.res.cookie(self.config.cookie, encrypted_cookie);
 
 		self.json({
 			status: 'okay',
