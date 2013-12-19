@@ -79,7 +79,7 @@ function auth_logout() {
 
 	self.json({
 		status: 'okay',
-		text: 'Bye bye!'
+		text: self.resource('sl', 'bye_bye') 
 	}); return;
 }
 

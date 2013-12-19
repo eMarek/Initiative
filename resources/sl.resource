@@ -5,3 +5,4 @@ user_not_exists			: Uporabnik ne obstaja!
 wrong_password			: Napačno geslo!
 login_succeeded_hellow	: Prijava uspela! Pozdravljen
 expired_session			: Seja ti je potekla!
+bye_bye					: Bye bye!
