@@ -1,10 +1,10 @@
-exports.install = function(framework) {
+exports.install = function (framework) {
 	framework.route('/manipulator/password/{pass}', password);
 	framework.route('/manipulator/decrypt_cookie/{encrypted_cookie}', decrypt_cookie);
 	framework.route('/manipulator/encrypt_cookie/', encrypt_cookie);
 };
 
-function password(pass) {
+function password (pass) {
 	var self = this;
 
 	var encoded_password = pass.sha256(self.config.secret);
@@ -12,7 +12,7 @@ function password(pass) {
 	self.plain(encoded_password);
 }
 
-function decrypt_cookie(encrypted_cookie) {
+function decrypt_cookie (encrypted_cookie) {
 
 	var self = this;
 
@@ -21,7 +21,7 @@ function decrypt_cookie(encrypted_cookie) {
 	self.plain(JSON.stringify(decrypted_cookie));
 }
 
-function encrypt_cookie() {
+function encrypt_cookie () {
 
 	var self = this;
 

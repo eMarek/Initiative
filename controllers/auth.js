@@ -1,15 +1,16 @@
-exports.install = function(framework) {
+exports.install = function (framework) {
 	framework.route('/auth/login', auth_login, ['post', 'json']);
 	framework.route('/auth/logout', auth_logout, ['get']);
 	framework.route('/auth/expiry', auth_expiry);
 };
 
-function auth_login() {
+function auth_login () {
 	var self = this;
 
 	var username = self.post.username;
 	var password = self.post.password;
 
+	// check username
 	if (!username) {
 		self.json({
 			status: 'error',
@@ -17,6 +18,7 @@ function auth_login() {
 		}); return;
 	}
 
+	// check password
 	if (!password) {
 		self.json({
 			status: 'error',
@@ -51,6 +53,7 @@ function auth_login() {
 
 		var user = doc.value;
 
+		// cookie data
 		var cookie = {
 			username: user.username,
 			ip: self.req.ip,
@@ -59,6 +62,7 @@ function auth_login() {
 			time_stamp: self.module('helper').time_stamp()
 		};
 
+		// encrypt cookie
 		var encrypted_cookie = self.encrypt(cookie);
 
 		// save cookie
@@ -71,7 +75,7 @@ function auth_login() {
 	});
 }
 
-function auth_logout() {
+function auth_logout () {
 	var self = this;
 
 	// expire cookie
@@ -83,7 +87,7 @@ function auth_logout() {
 	}); return;
 }
 
-function auth_expiry() {
+function auth_expiry () {
 	var self = this;
 
 	self.json({

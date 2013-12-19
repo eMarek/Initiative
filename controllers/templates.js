@@ -1,4 +1,4 @@
-exports.install = function(framework) {
+exports.install = function (framework) {
 	// all templates will be routed to contents/templates/*.html
 	// EXAMPLE:
 	// $routeProvider.when('/', { templateUrl: '/templates/products.html', controller: 'ProductsCtrl' });
@@ -7,7 +7,7 @@ exports.install = function(framework) {
     framework.file('Mapping: templates/*.html', file_template);
 };
 
-function file_template(req, res, isValidation) {
+function file_template (req, res, isValidation) {
 	
 	// Documentation: http://docs.partialjs.com/Request.prototype/#request.path
 	if (isValidation)
