@@ -1,6 +1,6 @@
 exports.install = function(framework) {
 	framework.route('/auth/login', auth_login, ['json']);
-	framework.route('/auth/logout', auth_logout);
+	framework.route('/auth/logout', auth_logout, ['json']);
 	framework.route('/auth/expiry', auth_expiry);
 };
 
@@ -49,10 +49,20 @@ function auth_login() {
 			}); return;
 		}
 
-		var auth = self.module('authorization');
 		var user = doc.value;
-		
-		auth.login(self, user._id, user);
+
+		var cookie = {
+			username: user.username,
+			ip: self.req.ip,
+			user_agent: self.req.headers['user-agent'],
+			secret: self.config.secret,
+			time_stamp: self.module('helper').time_stamp()
+		};
+
+		var encrypted_cookie = self.encrypt(cookie);
+
+		// save cookie
+		self.res.cookie(self.config.cookie, encrypted_cookie, new Date().add('m', 3));
 
 		self.json({
 			status: 'okay',
@@ -64,10 +74,8 @@ function auth_login() {
 function auth_logout() {
 	var self = this;
 
-	var auth = self.module('authorization');
-	var user = self.user;
-
-	auth.logoff(self, user.id);
+	// expire cookie
+	self.res.cookie(self.config.cookie, '', new Date().add('y', -1));
 
 	self.json({
 		status: 'okay',
