@@ -13,17 +13,10 @@ function password(pass) {
 
 function cookie(encrypted_cookie) {
 
+	var self = this;
+
 	/*
-	var d = new Date();
-
-	var year = d.getFullYear();
-	var month = d.getMonth() + 1;
-	var date = d.getDate();
-	var hours = d.getHours();
-	var minutes = d.getMinutes();
-	var seconds = d.getSeconds();
-
-	var time_stamp = [ year, month, date ].join('-') + ' ' + [ hours, minutes, seconds ].join(':');
+	var time_stamp = self.module('helper').time_stamp();
 
 	var cookie = {
 		username: 'testis',
@@ -33,9 +26,9 @@ function cookie(encrypted_cookie) {
 	};
 
 	var encrypted_cookie = self.encrypt(cookie);
+	console.log(encrypted_cookie);
 	*/
 
-	var self = this;
 
 	var decrypted_cookie = self.decrypt(encrypted_cookie);
 
