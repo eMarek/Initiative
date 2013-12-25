@@ -33,14 +33,14 @@ app.config(function ($routeProvider) {
 /*
 app.config(function ($httpProvider) {
 
-	var logsOutUserOn401 = function ($location, $q, sessionFactory, flashFactory) {
+	var logsOutUserOn401 = function ($location, $q, localFactory, flashFactory) {
 		var success = function (response) {
 			return response;
 		};
 		var error = function (response) {
 
 			if (response.status === 401) {
-				sessionFactory.remove('authenticated');
+				localFactory.remove('authenticated');
 				flashFactory.show(response.msg);
 				$location.path('/login');
 				return $q.reject(response);
@@ -112,7 +112,7 @@ app.controller('booksController', function ($scope) {
 
 });
 
-app.factory('authenticationFactory', function ($http, $location, sessionFactory, flashFactory) {
+app.factory('authenticationFactory', function ($http, $location, localFactory, flashFactory) {
 
 	return {
 		login: function (credentials) {
@@ -123,7 +123,7 @@ app.factory('authenticationFactory', function ($http, $location, sessionFactory,
 			login.success(function (server) {
 
 				if (server.status == 'okay') {
-					sessionFactory.set('authenticated', true);
+					localFactory.set('authenticated', true);
 					flashFactory.clear();
 					$location.path('/edit');
 					return;
@@ -138,12 +138,12 @@ app.factory('authenticationFactory', function ($http, $location, sessionFactory,
 
 		logout: function () {
 			var logout = $http.get('/auth/logout');
-			sessionFactory.remove('authenticated');
+			localFactory.remove('authenticated');
 			$location.path('/logout');
 		},
 
 		isLoggedIn: function () {
-			return sessionFactory.get('authenticated');
+			return localFactory.get('authenticated');
 		}
 	};
 });
