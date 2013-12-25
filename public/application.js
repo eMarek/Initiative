@@ -40,7 +40,7 @@ app.config(function ($httpProvider) {
 		var error = function (response) {
 
 			if (response.status === 401) {
-				sessionFactory.unset('authenticated');
+				sessionFactory.remove('authenticated');
 				flashFactory.show(response.msg);
 				$location.path('/login');
 				return $q.reject(response);
@@ -138,7 +138,7 @@ app.factory('authenticationFactory', function ($http, $location, sessionFactory,
 
 		logout: function () {
 			var logout = $http.get('/auth/logout');
-			sessionFactory.unset('authenticated');
+			sessionFactory.remove('authenticated');
 			$location.path('/logout');
 		},
 
@@ -157,8 +157,23 @@ app.factory('sessionFactory', function () {
 		set: function (key, val) {
 			return sessionStorage.setItem(key, val);
 		},
-		unset: function (key) {
+		remove: function (key) {
 			return sessionStorage.removeItem(key);
+		}
+	};
+});
+
+app.factory('localFactory', function () {
+	return {
+		get: function (key) {
+			return localStorage.getItem(key);
+		},
+
+		set: function (key, val) {
+			return localStorage.setItem(key, val);
+		},
+		remove: function (key) {
+			return localStorage.removeItem(key);
 		}
 	};
 });
@@ -183,7 +198,6 @@ app.factory('simpleFactory', function () {
 	}
 
 	return factory;
-
 });
 
 app.factory('flashFactory', function ($rootScope) {
