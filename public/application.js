@@ -30,32 +30,6 @@ app.config(function ($routeProvider) {
 	$routeProvider.otherwise({ redirectTo: '/login' } );
 });
 
-/*
-app.config(function ($httpProvider) {
-
-	var logsOutUserOn401 = function ($location, $q, localFactory, flashFactory) {
-		var success = function (response) {
-			return response;
-		};
-		var error = function (response) {
-
-			if (response.status === 401) {
-				flashFactory.show(response.msg);
-				$location.path('/login');
-				return $q.reject(response);
-			}
-			else {
-				return $q.reject(response);
-			}
-		};
-
-		return function (promise) {
-			return promise.then(success, error);
-		}
-	};
-});
-*/
-
 app.run(function ($rootScope, $location, authenticationFactory, flashFactory) {
 
 	$rootScope.$on('$routeChangeStart', function (event, next, current) {
@@ -108,7 +82,6 @@ app.controller('simpleController', function ($scope, $location, simpleFactory, a
 });
 
 app.controller('booksController', function ($scope) {
-
 });
 
 app.factory('authenticationFactory', function ($http, $location, $cookies, flashFactory) {
@@ -152,7 +125,6 @@ app.factory('sessionFactory', function () {
 		get: function (key) {
 			return sessionStorage.getItem(key);
 		},
-
 		set: function (key, val) {
 			return sessionStorage.setItem(key, val);
 		},
@@ -167,7 +139,6 @@ app.factory('localFactory', function () {
 		get: function (key) {
 			return localStorage.getItem(key);
 		},
-
 		set: function (key, val) {
 			return localStorage.setItem(key, val);
 		},
