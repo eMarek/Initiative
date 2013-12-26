@@ -66,11 +66,12 @@ function auth_login () {
 		var encrypted_cookie = self.encrypt(cookie);
 
 		// save cookie
-		self.res.cookie(self.config.cookie, encrypted_cookie);
+		// self.res.cookie(self.config.cookie, encrypted_cookie);
 
 		self.json({
 			status: 'okay',
-			text: self.resource('sl', 'login_succeeded_hellow') + ' ' + user.first_name + '!'
+			text: self.resource('sl', 'login_succeeded_hellow') + ' ' + user.first_name + '!',
+			cookie: encrypted_cookie
 		}); return;
 	});
 }
@@ -79,7 +80,7 @@ function auth_logout () {
 	var self = this;
 
 	// expire cookie
-	self.res.cookie(self.config.cookie, '', new Date().add('y', -1));
+	// self.res.cookie(self.config.cookie, '', new Date().add('y', -1));
 
 	self.json({
 		status: 'okay',

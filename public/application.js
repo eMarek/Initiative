@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ngRoute', 'ngCookies']);
 
 app.config(function ($routeProvider) {
 
@@ -40,7 +40,6 @@ app.config(function ($httpProvider) {
 		var error = function (response) {
 
 			if (response.status === 401) {
-				localFactory.remove('authenticated');
 				flashFactory.show(response.msg);
 				$location.path('/login');
 				return $q.reject(response);
@@ -112,19 +111,19 @@ app.controller('booksController', function ($scope) {
 
 });
 
-app.factory('authenticationFactory', function ($http, $location, localFactory, flashFactory) {
+app.factory('authenticationFactory', function ($http, $location, $cookies, flashFactory) {
 
 	return {
 		login: function (credentials) {
 			flashFactory.clear();
-			
+
 			var login = $http.post('/auth/login', credentials);
 
 			login.success(function (server) {
 
 				if (server.status == 'okay') {
-					localFactory.set('authenticated', true);
 					flashFactory.clear();
+					$cookies.__user = server.cookie;
 					$location.path('/edit');
 					return;
 				}
@@ -138,12 +137,12 @@ app.factory('authenticationFactory', function ($http, $location, localFactory, f
 
 		logout: function () {
 			var logout = $http.get('/auth/logout');
-			localFactory.remove('authenticated');
-			$location.path('/logout');
+			delete $cookies.__user
+			$location.path('/login');
 		},
 
 		isLoggedIn: function () {
-			return localFactory.get('authenticated');
+			return $cookies.__user;
 		}
 	};
 });
