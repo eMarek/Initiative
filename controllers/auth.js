@@ -1,7 +1,8 @@
 exports.install = function (framework) {
 	framework.route('/auth/login', auth_login, ['post', 'json']);
 	framework.route('/auth/logout', auth_logout, ['get']);
-	framework.route('/auth/expiry', auth_expiry);
+	framework.route('/auth/cache_add', cache_add, ['post']);
+	framework.route('/auth/cache_read', cache_read, ['post']);
 };
 
 function auth_login () {
@@ -88,11 +89,25 @@ function auth_logout () {
 	}); return;
 }
 
-function auth_expiry () {
+function cache_add () {
 	var self = this;
 
+	self.cache.add(self.user._id + '_testing', self.resource('sl', 'session_dafaq'));
+
 	self.json({
-		status: 'error',
-		text: self.resource('sl', 'expired_session')
+		status: 'okay',
+		text: self.resource('sl', 'cache_has_been_successfully_set')
+	}); return;
+}
+
+function cache_read () {
+	var self = this;
+
+	var cache = self.cache.read(self.user._id + '_testing');
+
+	self.json({
+		status: 'okay',
+		text: cache ? self.resource('sl', 'cache_has_been_successfully_read') : self.resource('sl', 'cache_not_set'), 
+		cache: cache
 	}); return;
 }

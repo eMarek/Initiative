@@ -33,6 +33,7 @@ framework.onAuthorization = function (req, res, flags, callback) {
 		}
 
 		var user = doc.value;
+		req.user = user;
 		callback(true);
 	});
 };

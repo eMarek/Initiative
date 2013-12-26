@@ -55,7 +55,7 @@ app.controller('loginController', function ($scope, $location, authenticationFac
 	}
 });
 
-app.controller('simpleController', function ($scope, $location, simpleFactory, authenticationFactory) {
+app.controller('simpleController', function ($scope, $location, simpleFactory, authenticationFactory, $http) {
 
 	$scope.users = simpleFactory.getUsers();
 
@@ -77,8 +77,32 @@ app.controller('simpleController', function ($scope, $location, simpleFactory, a
 	};
 
 	$scope.logout = function () {
-		authenticationFactory.logout()
-	}
+		authenticationFactory.logout();
+	};
+
+	$scope.cacheAdd = function () {
+		var cache_add = $http.post('/auth/cache_add');
+
+		cache_add.success(function (server) {
+
+			if (server.status == 'okay') {
+				console.log(server);
+				return;
+			}
+		});
+	};
+
+	$scope.cacheRead = function () {
+		var cache_read = $http.post('/auth/cache_read');
+
+		cache_read.success(function (server) {
+
+			if (server.status == 'okay') {
+				console.log(server);
+				return;
+			}
+		});
+	};
 });
 
 app.controller('booksController', function ($scope) {
@@ -109,7 +133,7 @@ app.factory('authenticationFactory', function ($http, $location, $cookies, flash
 		},
 
 		logout: function () {
-			var logout = $http.get('/auth/logout');
+			$http.get('/auth/logout');
 			$location.path('/login');
 			delete $cookies.__user
 		},
