@@ -110,8 +110,8 @@ app.factory('authenticationFactory', function ($http, $location, $cookies, flash
 
 		logout: function () {
 			var logout = $http.get('/auth/logout');
-			delete $cookies.__user
 			$location.path('/login');
+			delete $cookies.__user
 		},
 
 		isLoggedIn: function () {
