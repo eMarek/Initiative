@@ -26,8 +26,8 @@ function encrypt_cookie () {
 	var self = this;
 
 	var cookie = {
-		_id: user._id,
-		username: user.username,
+		_id: self.user._id,
+		username: self.user.username,
 		ip: self.req.ip,
 		user_agent: self.req.headers['user-agent'],
 		secret: self.config.secret,
