@@ -16,7 +16,7 @@ framework.on('load', function() {
 		if (!encypted_cookie) {
 			self.json({
 				status: 'error',
-				text: 'nimaš cookija'
+				text: self.resource('sl', 'authentication_required')
 			}); return;
 		}
 
@@ -25,7 +25,7 @@ framework.on('load', function() {
 		if (encypted_cookie.length < 200 || !cookie || utils.isEmpty(cookie)) {
 			self.json({
 				status: 'error',
-				text: 'cookie je poškodovan'
+				text: self.resource('sl', 'authentication_failed') + ' ' + self.resource('sl', 'cookie_is_corrupted')
 			}); return;
 		}
 
@@ -33,7 +33,7 @@ framework.on('load', function() {
 		if (!cookie._id || !cookie.username || !cookie.ip || !cookie.user_agent || !cookie.secret || !cookie.time_stamp) {
 			self.json({
 				status: 'error',
-				text: 'cookie ne vsebuje vseh ustreznih podatkov'
+				text: self.resource('sl', 'authentication_failed') + ' ' + self.resource('sl', 'cookie_does_not_contain')
 			}); return;
 		}
 
@@ -41,7 +41,7 @@ framework.on('load', function() {
 		if (cookie.ip != self.req.ip || cookie.user_agent != self.req.headers['user-agent'] || cookie.secret != self.config.secret) {
 			self.json({
 				status: 'error',
-				text: 'cookie ne ustreza tvojemu profilu'
+				text: self.resource('sl', 'authentication_failed') + ' ' + self.resource('sl', 'cookie_does_not_fit')
 			}); return;
 		}
 
@@ -49,8 +49,8 @@ framework.on('load', function() {
 		var cache = self.cache.read(cookie._id + '_cookie');
 		if (!cache || cache !== encypted_cookie) {
 			self.json({
-				status: 'error',
-				text: 'tvoja seja s tem cookijem je potekla'
+				status: 'logout',
+				text: self.resource('sl', 're_authentication_required')
 			}); return;
 		}
 
