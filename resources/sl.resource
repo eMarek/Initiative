@@ -16,4 +16,4 @@ authentication_failed				: Avtentikacija ni uspela.
 cookie_is_corrupted					: Piškotek je poškodovan.
 cookie_does_not_contain				: Piškotek ne vsebuje vseh ustreznih podatkov.
 cookie_does_not_fit					: Piškotek ne ustreza tvojemu profilu.
-re_authentication_required			: Zaradi neaktivnosti je potrebno ponovna prijava.
+re_authentication_required			: Zaradi neaktivnosti je potrebna ponovna prijava.
