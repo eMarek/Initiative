@@ -5,7 +5,7 @@ framework.on('load', function() {
 		var self = this;
 
 		// public paths
-		var publicPaths = ['/', '/auth/login'];
+		var publicPaths = ['/', '/auth/login', '/auth/logout'];
 
 		if (publicPaths.indexOf(self.uri.path) >= 0) {
 			controller(); return;
