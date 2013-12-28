@@ -1,8 +1,8 @@
 exports.install = function (framework) {
 	framework.route('/auth/login', auth_login, ['post', 'json']);
 	framework.route('/auth/logout', auth_logout, ['get']);
-	framework.route('/auth/cache_add', cache_add, ['post', 'logged']);
-	framework.route('/auth/cache_read', cache_read, ['post', 'logged']);
+	framework.route('/auth/cache_add', cache_add, ['post']);
+	framework.route('/auth/cache_read', cache_read, ['post']);
 };
 
 function auth_login () {
@@ -68,7 +68,7 @@ function auth_login () {
 		var encrypted_cookie = self.encrypt(cookie);
 
 		// adding cookie in cache
-		self.cache.add(user._id + '_cookie', encrypted_cookie, new Date().add('minute', 10));
+		self.cache.add(user._id + '_cookie', encrypted_cookie, new Date().add('minute', 3));
 
 		// save cookie
 		// self.res.cookie(self.config.cookie, encrypted_cookie);

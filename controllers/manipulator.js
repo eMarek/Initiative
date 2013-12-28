@@ -1,7 +1,7 @@
 exports.install = function (framework) {
-	framework.route('/manipulator/password/{pass}', password, ['logged']);
-	framework.route('/manipulator/decrypt_cookie/{encrypted_cookie}', decrypt_cookie, ['logged']);
-	framework.route('/manipulator/encrypt_cookie/', encrypt_cookie, ['logged']);
+	framework.route('/manipulator/password/{pass}', password);
+	framework.route('/manipulator/decrypt_cookie/{encrypted_cookie}', decrypt_cookie);
+	framework.route('/manipulator/encrypt_cookie/', encrypt_cookie);
 };
 
 function password (pass) {
