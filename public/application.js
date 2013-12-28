@@ -81,24 +81,30 @@ app.controller('simpleController', function ($scope, $location, simpleFactory, a
 	};
 
 	$scope.cacheAdd = function () {
-		var cache_add = $http.post('/auth/cache_add');
-
-		cache_add.success(function (server) {
+		$http.post('/auth/cache_add').success(function (server) {
 
 			if (server.status == 'okay') {
 				console.log(server);
+				return;
+			}
+
+			if (server.status == 'logout') {
+				$location.path('/login');
 				return;
 			}
 		});
 	};
 
 	$scope.cacheRead = function () {
-		var cache_read = $http.post('/auth/cache_read');
-
-		cache_read.success(function (server) {
+		$http.post('/auth/cache_read').success(function (server) {
 
 			if (server.status == 'okay') {
 				console.log(server);
+				return;
+			}
+
+			if (server.status == 'logout') {
+				$location.path('/login');
 				return;
 			}
 		});
@@ -114,9 +120,7 @@ app.factory('authenticationFactory', function ($http, $location, $cookies, flash
 		login: function (credentials) {
 			flashFactory.clear();
 
-			var login = $http.post('/auth/login', credentials);
-
-			login.success(function (server) {
+			$http.post('/auth/login', credentials).success(function (server) {
 
 				if (server.status == 'okay') {
 					flashFactory.clear();

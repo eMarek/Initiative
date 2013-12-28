@@ -15,7 +15,7 @@ framework.on('load', function() {
 		var encypted_cookie = self.req.cookie(self.config.cookie);
 		if (!encypted_cookie) {
 			self.json({
-				status: 'error',
+				status: 'logout',
 				text: self.resource('sl', 'authentication_required')
 			}); return;
 		}
@@ -24,7 +24,7 @@ framework.on('load', function() {
 		var cookie = self.decrypt(encypted_cookie);
 		if (encypted_cookie.length < 200 || !cookie || utils.isEmpty(cookie)) {
 			self.json({
-				status: 'error',
+				status: 'logout',
 				text: self.resource('sl', 'authentication_failed') + ' ' + self.resource('sl', 'cookie_is_corrupted')
 			}); return;
 		}
@@ -32,7 +32,7 @@ framework.on('load', function() {
 		// check cookie data
 		if (!cookie._id || !cookie.username || !cookie.ip || !cookie.user_agent || !cookie.secret || !cookie.time_stamp) {
 			self.json({
-				status: 'error',
+				status: 'logout',
 				text: self.resource('sl', 'authentication_failed') + ' ' + self.resource('sl', 'cookie_does_not_contain')
 			}); return;
 		}
@@ -40,7 +40,7 @@ framework.on('load', function() {
 		// check cookie adequacy
 		if (cookie.ip != self.req.ip || cookie.user_agent != self.req.headers['user-agent'] || cookie.secret != self.config.secret) {
 			self.json({
-				status: 'error',
+				status: 'logout',
 				text: self.resource('sl', 'authentication_failed') + ' ' + self.resource('sl', 'cookie_does_not_fit')
 			}); return;
 		}
