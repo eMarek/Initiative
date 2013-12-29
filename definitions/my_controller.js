@@ -45,6 +45,18 @@ framework.on('load', function() {
 			}); return;
 		}
 
+		// damn app restart
+		var time_stamp = require('moment').utc();
+		var cookieLifeTime = time_stamp.diff(cookie.time_stamp, 'seconds');
+		var appLifeTime = process.uptime();
+
+		if (appLifeTime < cookieLifeTime) {
+			self.json({
+				status: 'logout',
+				text: self.resource('sl', 'damn_authentication_required')
+			}); return;
+		}
+
 		// reading cookie from cache
 		var cache = self.cache.read(cookie._id + '_cookie');
 		if (!cache || cache !== encypted_cookie) {
