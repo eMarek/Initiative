@@ -10,3 +10,4 @@ Da to zver poženeš v pogon potrebuješ:
 * CouchDB 1.5.0 (http://couchdb.apache.org/)
 * Coucher 2.0.2 (https://github.com/petersirka/node-couchdb)
 * Angular.js 1.2.6 (http://angularjs.org/)
+* Moment.js 2.5.0 (http://momentjs.com/)
