@@ -83,11 +83,6 @@ app.controller('simpleController', function ($scope, $location, simpleFactory, a
 	$scope.cacheAdd = function () {
 		$http.post('/auth/cache_add').success(function (server) {
 
-			if (server.status == 'okay') {
-				console.log(server);
-				return;
-			}
-
 			if (server.status == 'logout') {
 				$location.path('/login');
 				return;
@@ -97,11 +92,6 @@ app.controller('simpleController', function ($scope, $location, simpleFactory, a
 
 	$scope.cacheRead = function () {
 		$http.post('/auth/cache_read').success(function (server) {
-
-			if (server.status == 'okay') {
-				console.log(server);
-				return;
-			}
 
 			if (server.status == 'logout') {
 				$location.path('/login');
