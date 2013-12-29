@@ -61,7 +61,7 @@ function auth_login () {
 			ip: self.req.ip,
 			user_agent: self.req.headers['user-agent'],
 			secret: self.config.secret,
-			time_stamp: self.module('helper').time_stamp()
+			time_stamp: require('moment').utc().format()
 		};
 
 		// encrypt cookie

@@ -31,7 +31,7 @@ function encrypt_cookie () {
 		ip: self.req.ip,
 		user_agent: self.req.headers['user-agent'],
 		secret: self.config.secret,
-		time_stamp: self.module('helper').time_stamp()
+		time_stamp: require('moment').utc().format()
 	};
 
 	var encrypted_cookie = self.encrypt(cookie);
