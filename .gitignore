@@ -1,6 +1,6 @@
 node_modules/.bin/
 node_modules/coucher/
-node_modules/partial.js/
+node_modules/total.js/
 node_modules/moment/
 public/angular-*/
 tmp/
